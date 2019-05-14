@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { VideoService } from 'src/app/services/video.service';
+import { Video } from 'src/app/models/video.model';
 
 // @Injectable()
 
@@ -18,8 +19,8 @@ export class NewPage implements OnInit {
   fileUrl: string;
   fileUploaded = false;
 
-  constructor(private formBuilder: FormBuilder, private videoService: VideoService,
-              private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private videoService: VideoService) 
+  { }
 
   ngOnInit() {
     this.initForm();
@@ -33,26 +34,47 @@ export class NewPage implements OnInit {
       description: ['', Validators.required]
     });
   }
-
+  toAdd:any = {}
   onSaveVideo(){
-    var titre = this.videoForm.get('titre').value;
-    var type = this.videoForm.get('type').value;
-    var genre = this.videoForm.get('genre').value;
-    var description = this.videoForm.get('description').value;
-    if(this.fileUrl && this.fileUrl !== '') {
-
-      var image = this.fileUrl;
-    }else{
-      // newBook.photo = "https://firebasestorage.googleapis.com/v0/b/myfirstapp-b7a86.appspot.com/o/images%2FUniversit%C3%A9.jpg?alt=media&token=4fc41251-f187-4a00-ba67-8b960cbac7f2";
-    }
-    var date = new Date();
-    var idUtilisateur = "ghMpEJSE7PRCGL9qwtwKP1XAGdg2";
     
+    if(this.fileUrl && this.fileUrl !== '') {
+      this.toAdd.image = this.fileUrl;
+    }
+    this.toAdd.date = new Date();
+    this.toAdd.idUtilisateur = "ghMpEJSE7PRCGL9qwtwKP1XAGdg2";
     
     this.videoService.getVideos();
     var allVideos = this.videoService.videos;
-    allVideos.forEach(element => {
-      console.log(element);
+    var idVideo = 0;
+    allVideos.forEach(videos => {
+      videos.forEach(video => {
+        if (video.id > idVideo) {
+          idVideo = video.id;
+        }
+      });
     });
+    idVideo++;
+    this.toAdd.idVideo = idVideo;
+    this.videoService.createNewVideo(this.toAdd);
+    this.router.navigate(['/videos']);
+  }
+  onUploadFile(file: File) {
+    this.fileUploaded = false;
+    this.fileIsUploading = true;
+
+    var imageUpload = this.videoService.uploadFile(file);
+    
+    imageUpload.then(
+      (url: string) => {
+        this.fileUrl = url;
+        this.fileIsUploading = false;
+        this.fileUploaded = true;
+      })
+  }
+  writeURL(url: string) {
+    console.log(url);
+  }
+  detectFiles(event) {
+    this.onUploadFile(event.target.files[0]);
   }
 }

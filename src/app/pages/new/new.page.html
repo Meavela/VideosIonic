@@ -1,9 +1,48 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>new</ion-title>
+    <ion-title>Ajouter une vidéo</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+    <form (ngSubmit)="onSaveVideo()">
+      <ion-item>
+        <ion-label>Titre</ion-label>
+        <ion-input type="text" [(ngModel)]="toAdd.titre" name="titre"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Type</ion-label>
+        <ion-select [(ngModel)]="toAdd.type" name="type">
+          <ion-select-option value="Film">Film</ion-select-option>
+          <ion-select-option value="Serie">Serie</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Genre</ion-label>
+        <ion-select [(ngModel)]="toAdd.genre" name="genre">
+            <ion-select-option value="Fantastique">Fantastique</ion-select-option>
+            <ion-select-option value="Romance">Romance</ion-select-option>            
+            <ion-select-option value="Aventure">Aventure</ion-select-option>
+            <ion-select-option value="Comédie">Comédie</ion-select-option>
+            <ion-select-option value="Horreur">Horreur</ion-select-option>
+            <ion-select-option value="Action">Action</ion-select-option>
+            <ion-select-option value="Science-Fiction">Science-Fiction</ion-select-option>
+            <ion-select-option value="Drame">Drame</ion-select-option>
+            <ion-select-option value="Thriller">Thriller</ion-select-option>
+          </ion-select>      
+        </ion-item>
+      <ion-item>
+        <ion-label>Description</ion-label>
+        <ion-input type="text" [(ngModel)]="toAdd.description" name="description"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Image</ion-label>
+        <ion-input type="file" (change)="detectFiles($event)" accept="image/*"></ion-input>
+        <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
+        <p class="text-success" *ngIf="fileIsUploading">Fichier en chargement...</p>
+      </ion-item>
+      <ion-button color="success" [disabled]="fileIsUploading" type="submit">
+        Ajouter
+      </ion-button>  
+      </form>
 </ion-content>

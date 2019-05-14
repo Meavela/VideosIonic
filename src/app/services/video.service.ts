@@ -11,7 +11,6 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class VideoService {
 
   videos: Observable<any[]>;
-  // videosSubject = new Subject<any[]>();
 
   constructor(public db: AngularFirestore) 
   { 
@@ -27,7 +26,7 @@ export class VideoService {
 
   }
 
-  createNewVideo(video: Video){
+  createNewVideo(video: Object){
     this.db.collection('videos').add(video);
     this.getVideos();
   }
