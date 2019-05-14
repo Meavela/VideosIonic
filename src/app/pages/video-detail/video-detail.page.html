@@ -9,10 +9,25 @@
     <ion-card-header>
       <ion-card-title>{{ item.titre }}</ion-card-title>
       <ion-card-subtitle>{{ item.type }} - {{ item.genre }}</ion-card-subtitle>
-      <ion-img width="80" height="80" src="..."></ion-img>
+      <ion-img style="text-align: center;
+      overflow:hidden;
+      border: 1px solid #006699;
+      -webkit-border-radius:100px;
+      -moz-border-radius: 100%;
+      border-radius:100px;
+      width:170px;
+      height:auto;
+      -moz-box-shadow: 0px 0px 10px #343434;
+      -webkit-box-shadow: 0px 0px 10px #343434;
+      -o-box-shadow: 0px 0px 10px #343434;
+      box-shadow: 0px 0px 10px #343434;" *ngIf="item.image" [src]="item.image"></ion-img>
     </ion-card-header>
     <ion-card-content>
       {{ item.description }}
+      <br>
+      <ion-button class="btn btn-default pull-right" color="danger" (click)="onDeleteVideo(item)" >
+          <ion-icon name="close"></ion-icon>
+      </ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

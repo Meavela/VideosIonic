@@ -1,18 +1,18 @@
 <ion-header>
     <ion-toolbar>
-      <ion-title>videos</ion-title>
+      <ion-title>Les vidéos</ion-title>
     </ion-toolbar>
   </ion-header>
   
   <ion-content>
-    <ion-card *ngFor="let item of items | async">
+    <ion-card button *ngFor="let video of videos; let i = index" (click)="onViewVideo(i)">
       <ion-card-header>
-        <ion-card-title>{{ item.titre }}</ion-card-title>
+        <ion-card-title>{{ video.titre }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        {{ item.description }}
+        {{ video.description }}
         <br>
-        <button (click)="redirectToDetails(item)" class="btn">Details</button>
+        
       </ion-card-content>
     </ion-card>  
   </ion-content>

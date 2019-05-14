@@ -14,6 +14,11 @@ const routes: Routes = [
   { 
     path: 'videos', 
     loadChildren: './pages/videos/videos.module#VideosPageModule' 
+    
+  },
+  { 
+    path: 'new', 
+    loadChildren: './pages/new/new.module#NewPageModule' 
   },
   { 
     path: 'video-detail', 

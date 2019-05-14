@@ -18,9 +18,14 @@ export class AppComponent {
       icon: 'home'
     },
     {
-      title: 'List',
+      title: 'Liste Vidéos',
       url: '/videos',
       icon: 'list'
+    },
+    {
+      title: 'Ajout vidéo',
+      url: '/new',
+      icon: 'add'
     }
   ];
 
