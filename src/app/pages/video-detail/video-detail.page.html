@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Video Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let item of result">
+    <ion-card-header>
+      <ion-card-title>{{ item.titre }}</ion-card-title>
+      <ion-card-subtitle>{{ item.type }} - {{ item.genre }}</ion-card-subtitle>
+      <ion-img width="80" height="80" src="..."></ion-img>
+    </ion-card-header>
+    <ion-card-content>
+      {{ item.description }}
+    </ion-card-content>
+  </ion-card>
+</ion-content>

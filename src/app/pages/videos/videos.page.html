@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>videos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-card *ngFor="let item of items | async">
+      <ion-card-header>
+        <ion-card-title>{{ item.titre }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        {{ item.description }}
+        <br>
+        <button (click)="redirectToDetails(item)" class="btn">Details</button>
+      </ion-card-content>
+    </ion-card>  
+  </ion-content>
+  
