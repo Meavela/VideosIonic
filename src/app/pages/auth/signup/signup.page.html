@@ -1,9 +1,23 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>signup</ion-title>
+    <ion-title>Créer un compte</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <form (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label for="email">Adresse mail</ion-label>
+      <ion-input type="text"
+                 [(ngModel)]="toAdd.email" 
+                 name="email"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label for="password">Mot de passe</ion-label>
+        <ion-input type="password"
+                   [(ngModel)]="toAdd.password"
+                   name="password"></ion-input>
+    </ion-item>
+    <ion-button color="success" type="submit"> Go !</ion-button>
+  </form>
 </ion-content>
