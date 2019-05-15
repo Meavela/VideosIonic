@@ -30,14 +30,6 @@ export class VideosPage implements OnInit {
     );
   }
 
-  onNewVideo(){
-    this.router.navigate(['/videos', 'new']);
-  }
-
-
-  onViewVideo(id: number){
-    this.router.navigate(['/videos', id]);
-  }
 
   // ngOnDestroy(){
   //   this.videos.unsubscribe();

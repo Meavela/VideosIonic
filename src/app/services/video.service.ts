@@ -11,6 +11,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class VideoService {
 
   videos: Observable<any[]>;
+  singleVideo: Video;
 
   constructor(public db: AngularFirestore) 
   { 
@@ -23,12 +24,19 @@ export class VideoService {
 
   getSingleVideo(id: number){
     this.videos = this.db.collection('videos', ref => ref.where('idVideo', '==', id)).valueChanges();
-
   }
 
   createNewVideo(video: Object){
     this.db.collection('videos').add(video);
     this.getVideos();
+  }
+
+  updateVideo(video: Object, idToRemove: string){
+    this.db.collection('videos').doc(idToRemove).update(video).then(function() {
+      console.log("Document successfully update!");
+    }).catch(function(error) {
+        console.error("Error updating document: ", error);
+    });
   }
 
   removeVideo(video: Video, idToRemove: string){

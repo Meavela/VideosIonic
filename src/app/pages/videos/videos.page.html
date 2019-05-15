@@ -5,14 +5,12 @@
   </ion-header>
   
   <ion-content>
-    <ion-card button *ngFor="let video of videos; let i = index" (click)="onViewVideo(i)">
+    <ion-card button *ngFor="let video of videos; let i = index" [routerLink]="['/', 'videos', video.idVideo]">
       <ion-card-header>
         <ion-card-title>{{ video.titre }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        {{ video.description }}
-        <br>
-        
+        {{ video.description }}        
       </ion-card-content>
     </ion-card>  
   </ion-content>

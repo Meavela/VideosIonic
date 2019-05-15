@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Editer la vidéo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form (ngSubmit)="onSaveVideo()" *ngFor="let item of result">
+        <ion-item>
+          <ion-label>Titre</ion-label>
+          <ion-input type="text" [(ngModel)]="toAdd.titre" name="titre" [value]="item.titre" [placeholder]="item.titre"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Type</ion-label>
+          <ion-select [(ngModel)]="toAdd.type" name="type" [value]="item.type" [placeholder]="item.type">
+            <ion-select-option value="Film" [selected]="true">Film</ion-select-option>
+            <ion-select-option value="Serie" [selected]="true">Serie</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Genre</ion-label>
+          <ion-select [(ngModel)]="toAdd.genre" name="genre" [value]="item.genre" [placeholder]="item.genre">
+              <ion-select-option value="Fantastique" selected="true">Fantastique</ion-select-option>
+              <ion-select-option value="Romance" [selected]="true">Romance</ion-select-option>            
+              <ion-select-option value="Aventure" [selected]="true">Aventure</ion-select-option>
+              <ion-select-option value="Comédie" [selected]="true">Comédie</ion-select-option>
+              <ion-select-option value="Horreur" [selected]="true">Horreur</ion-select-option>
+              <ion-select-option value="Action" [selected]="true">Action</ion-select-option>
+              <ion-select-option value="Science-Fiction" [selected]="true">Science-Fiction</ion-select-option>
+              <ion-select-option value="Drame" [selected]="true">Drame</ion-select-option>
+              <ion-select-option value="Thriller" [selected]="true">Thriller</ion-select-option>
+            </ion-select>      
+          </ion-item>
+        <ion-item>
+          <ion-label>Description</ion-label>
+          <ion-input type="text" [(ngModel)]="toAdd.description" name="description" [value]="item.description" [placeholder]="item.description"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Image</ion-label>
+          <ion-input type="file" (change)="detectFiles($event)" accept="image/*" [value]="item.image"></ion-input>
+          <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
+          <p class="text-success" *ngIf="fileIsUploading">Fichier en chargement...</p>
+        </ion-item>
+        <ion-button color="success" [disabled]="fileIsUploading" type="submit">
+          Editer
+        </ion-button>
+      </form>
+</ion-content>

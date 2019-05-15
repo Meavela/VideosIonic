@@ -3,30 +3,27 @@
     <ion-title>Video Details</ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content>
+<ion-content padding>
   <ion-card *ngFor="let item of result">
     <ion-card-header>
       <ion-card-title>{{ item.titre }}</ion-card-title>
       <ion-card-subtitle>{{ item.type }} - {{ item.genre }}</ion-card-subtitle>
-      <ion-img style="text-align: center;
-      overflow:hidden;
-      border: 1px solid #006699;
-      -webkit-border-radius:100px;
-      -moz-border-radius: 100%;
-      border-radius:100px;
-      width:170px;
-      height:auto;
-      -moz-box-shadow: 0px 0px 10px #343434;
-      -webkit-box-shadow: 0px 0px 10px #343434;
-      -o-box-shadow: 0px 0px 10px #343434;
-      box-shadow: 0px 0px 10px #343434;" *ngIf="item.image" [src]="item.image"></ion-img>
+      <ion-card-subtitle>Date de publication : {{ item.date }}</ion-card-subtitle>
     </ion-card-header>
-    <ion-card-content>
-      {{ item.description }}
+    <ion-card-content text-center>
+      <ion-img style="height: 100px; width: auto;
+      margin: auto;
+      display: block;" *ngIf="item.image" [src]="item.image"></ion-img>
       <br>
-      <ion-button class="btn btn-default pull-right" color="danger" (click)="onDeleteVideo(item)" >
-          <ion-icon name="close"></ion-icon>
+      {{ item.description }}
+
+      <ion-button expand="full" color="danger" (click)="onDeleteVideo(item)" >
+          <ion-icon name="close" slot="start"></ion-icon>
+          Supprimer vidéo
+      </ion-button>
+      <ion-button expand="full" [routerLink]="['/', 'videos', 'edit', item.idVideo]">
+          <ion-icon ios="ios-create" md="md-create" slot="start"></ion-icon>
+          Editer vidéo
       </ion-button>
     </ion-card-content>
   </ion-card>

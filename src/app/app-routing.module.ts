@@ -28,6 +28,14 @@ const routes: Routes = [
     path: 'videos/:id', 
     loadChildren: './pages/video-detail/video-detail.module#VideoDetailPageModule' 
   },
+  { 
+    path: 'edit', 
+    loadChildren: './pages/edit/edit.module#EditPageModule' 
+  },
+  { 
+    path: 'videos/edit/:id', 
+    loadChildren: './pages/edit/edit.module#EditPageModule' 
+  },
 ];
 
 @NgModule({

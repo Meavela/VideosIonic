@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
@@ -12,36 +12,39 @@ import { map } from 'rxjs/operators';
   templateUrl: './video-detail.page.html',
   styleUrls: ['./video-detail.page.scss'],
 })
-export class VideoDetailPage implements OnInit {
+export class VideoDetailPage implements OnInit, OnDestroy {
+  
 
-  public tests: AngularFirestoreCollection<Video>;
+  public videosCollection: AngularFirestoreCollection<Video>;
   public items: Observable<any[]>;
   public result: Array<any> = [];
 
-  /**
-   * Constructor of our details page
-   * @param activatedRoute Information about the route we are on
-   */
   constructor(private videosService: VideoService, private router: Router, private activatedRoute: ActivatedRoute, db: AngularFirestore) 
   { 
-    this.tests = db.collection<Video>('videos');
+    this.videosCollection = db.collection<Video>('videos');
   }
 
   ngOnInit() {
+    this.result = [];
     var idVideo = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.videosService.getSingleVideo(idVideo);
     this.videosService.videos.subscribe(item =>{
-      item.forEach(element => {
-        this.result.push(element);
+      item.forEach(video => {
+        var date = new Date(video.date.seconds * 1000);
+
+        video.date = (date.getDate()+1)+"/0"+(date.getMonth()+1)+"/"+(date.getFullYear());
+
+        this.result.pop();
+        this.result.push(video);
       });
     });
   }
 
   onDeleteVideo(video: Video){
-    var lol = this.tests.snapshotChanges().pipe(
+    var lol = this.videosCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as Video;
-        const id = a.payload.doc.id;
+        var data = a.payload.doc.data() as Video;
+        var id = a.payload.doc.id;
         return { id, data };
       }))
     );
@@ -57,5 +60,8 @@ export class VideoDetailPage implements OnInit {
     this.router.navigate(['/videos']);
   }
 
+  ngOnDestroy(): void {
+    // this.result.unsubscribe();
+  }
 }
 
