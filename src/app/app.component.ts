@@ -13,17 +13,27 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class AppComponent {
   public appPages = [
     {
+      title: 'Se connecter',
+      url: '/signin',
+      icon: 'contact'
+    },
+    {
+      title: 'Créer un compte',
+      url: '/signup',
+      icon: 'contact'
+    },
+    {
       title: 'Home',
       url: '/home',
       icon: 'home'
     },
     {
-      title: 'Liste Vidéos',
+      title: 'Liste vidéos',
       url: '/videos',
       icon: 'list'
     },
     {
-      title: 'Ajout vidéo',
+      title: 'Ajouter vidéo',
       url: '/new',
       icon: 'add'
     }
@@ -42,7 +52,7 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      this.splashScreen.show();
     });
   }
 }

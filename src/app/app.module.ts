@@ -19,6 +19,9 @@ import { environment } from '../environments/environment';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 
+import { AuthService } from './services/auth.service';
+import { AuthGuardService } from './services/auth-guard.service';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -34,6 +37,8 @@ import { FormsModule } from '@angular/forms';
     AngularFireStorageModule
   ],
   providers: [
+    AuthService,
+    AuthGuardService,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

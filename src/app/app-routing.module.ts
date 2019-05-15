@@ -36,6 +36,14 @@ const routes: Routes = [
     path: 'videos/edit/:id', 
     loadChildren: './pages/edit/edit.module#EditPageModule' 
   },
+  { 
+    path: 'signin', 
+    loadChildren: './pages/auth/signin/signin.module#SigninPageModule' 
+  },
+  { 
+    path: 'signup', 
+    loadChildren: './pages/auth/signup/signup.module#SignupPageModule' 
+  },
 ];
 
 @NgModule({
