@@ -9,6 +9,16 @@ export class AuthService {
 
   constructor() { }
 
+  currentUser(){
+    return firebase.auth().currentUser;
+  }
+
+  currentUserId(){
+    firebase.auth().onAuthStateChanged( user => {
+      console.log(user);
+    });
+  }
+
   createNewUser(email: string, password: string) {
     return new Promise(
       (resolve, reject) => {

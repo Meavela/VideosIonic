@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { VideoService } from 'src/app/services/video.service';
-import { Video } from 'src/app/models/video.model';
+import { AuthService } from 'src/app/services/auth.service';
 
-// @Injectable()
+@Injectable()
 
 @Component({
   selector: 'app-new',
@@ -18,11 +18,22 @@ export class NewPage implements OnInit {
   fileIsUploading = false;
   fileUrl: string;
   fileUploaded = false;
+  isConnected: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private videoService: VideoService) 
-  { }
+  constructor(private authService: AuthService, 
+              private formBuilder: FormBuilder, 
+              private router: Router, 
+              private videoService: VideoService) 
+  { 
+
+  }
+  
 
   ngOnInit() {
+    var currentUser = this.authService.currentUser();
+    if(currentUser != null){
+      this.isConnected = true;
+    }
     this.initForm();
   }
 
@@ -34,14 +45,17 @@ export class NewPage implements OnInit {
       description: ['', Validators.required]
     });
   }
+
   toAdd:any = {}
   onSaveVideo(){
-    
     if(this.fileUrl && this.fileUrl !== '') {
       this.toAdd.image = this.fileUrl;
     }
     this.toAdd.date = new Date();
-    this.toAdd.idUtilisateur = "ghMpEJSE7PRCGL9qwtwKP1XAGdg2";
+
+    var currentUser = this.authService.currentUser();
+    
+    this.toAdd.idUtilisateur = currentUser.uid;
     
     this.videoService.getVideos();
     var allVideos = this.videoService.videos;
@@ -58,6 +72,7 @@ export class NewPage implements OnInit {
     this.videoService.createNewVideo(this.toAdd);
     this.router.navigate(['/videos']);
   }
+
   onUploadFile(file: File) {
     this.fileUploaded = false;
     this.fileIsUploading = true;
@@ -71,10 +86,13 @@ export class NewPage implements OnInit {
         this.fileUploaded = true;
       })
   }
-  writeURL(url: string) {
-    console.log(url);
-  }
+  
   detectFiles(event) {
     this.onUploadFile(event.target.files[0]);
+  }
+
+  deconnect(){
+    this.authService.signOutUser();
+    location.reload();
   }
 }

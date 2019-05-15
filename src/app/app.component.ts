@@ -13,16 +13,6 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class AppComponent {
   public appPages = [
     {
-      title: 'Se connecter',
-      url: '/signin',
-      icon: 'contact'
-    },
-    {
-      title: 'Créer un compte',
-      url: '/signup',
-      icon: 'contact'
-    },
-    {
       title: 'Home',
       url: '/home',
       icon: 'home'

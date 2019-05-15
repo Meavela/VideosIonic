@@ -6,20 +6,26 @@ import { VideoService } from 'src/app/services/video.service';
 import { Video } from 'src/app/models/video.model';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-video-detail',
   templateUrl: './video-detail.page.html',
   styleUrls: ['./video-detail.page.scss'],
 })
-export class VideoDetailPage implements OnInit, OnDestroy {
+export class VideoDetailPage implements OnInit {
   
 
   public videosCollection: AngularFirestoreCollection<Video>;
   public items: Observable<any[]>;
   public result: Array<any> = [];
+  public sameUser: boolean = false;
+  isConnected: boolean = false;
 
-  constructor(private videosService: VideoService, private router: Router, private activatedRoute: ActivatedRoute, db: AngularFirestore) 
+  constructor(private authService: AuthService, 
+              private videosService: VideoService, 
+              private router: Router, 
+              private activatedRoute: ActivatedRoute, db: AngularFirestore) 
   { 
     this.videosCollection = db.collection<Video>('videos');
   }
@@ -36,8 +42,17 @@ export class VideoDetailPage implements OnInit, OnDestroy {
 
         this.result.pop();
         this.result.push(video);
+        var currentUser = this.authService.currentUser();
+        if(currentUser != null){
+          this.isConnected = true;
+          if(currentUser.uid == video.idUtilisateur){
+            this.sameUser = true;
+          }
+        }
+        
       });
     });
+    
   }
 
   onDeleteVideo(video: Video){
@@ -60,8 +75,9 @@ export class VideoDetailPage implements OnInit, OnDestroy {
     this.router.navigate(['/videos']);
   }
 
-  ngOnDestroy(): void {
-    // this.result.unsubscribe();
+  deconnect(){
+    this.authService.signOutUser();
+    location.reload();
   }
 }
 

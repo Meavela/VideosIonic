@@ -6,6 +6,7 @@ import { VideoService } from 'src/app/services/video.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-edit',
@@ -22,7 +23,12 @@ export class EditPage implements OnInit {
   fileUrl: string;
   fileUploaded = false;
 
-  constructor(private formBuilder: FormBuilder, private videosService: VideoService, private router: Router, private activatedRoute: ActivatedRoute, db: AngularFirestore) 
+  constructor(private formBuilder: FormBuilder,
+              private authService: AuthService,  
+              private videosService: VideoService, 
+              private router: Router, 
+              private activatedRoute: ActivatedRoute, 
+              private db: AngularFirestore) 
   { 
     this.videos = db.collection<Video>('videos');
   }
@@ -88,5 +94,11 @@ export class EditPage implements OnInit {
     });
 
     this.router.navigate(['/videos', this.result[0].idVideo]);
+  }
+
+  deconnect(){
+    this.authService.signOutUser();
+    this.router.navigate(['/home']);
+    // location.reload();
   }
 }

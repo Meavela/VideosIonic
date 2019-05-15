@@ -1,11 +1,19 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Ajouter une vidéo</ion-title>
+    <ion-title slot="start">Ajouter une vidéo</ion-title>
+    <ion-button slot="primary" (click)="deconnect()" *ngIf="isConnected; else notConnected">
+        <ion-icon ios="ios-contact" md="md-contact"></ion-icon>
+         Se déconnecter
+    </ion-button>
+    <ng-template #notConnected slot="primary">
+      <ion-button [routerLink]="['/', 'signin']" slot="primary">Se connecter</ion-button>
+      <ion-button [routerLink]="['/', 'signup']" slot="primary">S'inscrire</ion-button>
+    </ng-template>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <form (ngSubmit)="onSaveVideo()">
+    <form *ngIf="isConnected; else elseBlock" (ngSubmit)="onSaveVideo()">
       <ion-item>
         <ion-label>Titre</ion-label>
         <ion-input type="text" [(ngModel)]="toAdd.titre" name="titre"></ion-input>
@@ -44,5 +52,6 @@
       <ion-button color="success" [disabled]="fileIsUploading" type="submit">
         Ajouter
       </ion-button>  
-      </form>
+    </form>
+    <ng-template #elseBlock>Connectez vous !</ng-template>
 </ion-content>

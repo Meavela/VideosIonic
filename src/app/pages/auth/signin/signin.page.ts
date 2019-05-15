@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-signin',
@@ -13,7 +14,8 @@ export class SigninPage implements OnInit {
   signinForm: FormGroup;
   errorMessage: string;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private navCtrl:NavController,
+              private formBuilder: FormBuilder,
               private authService: AuthService,
               private router: Router) 
   { }
@@ -32,7 +34,7 @@ export class SigninPage implements OnInit {
   onSubmit() {
     this.authService.signInUser(this.toAdd.email, this.toAdd.password).then(
       () => {
-        this.router.navigate(['/home']);
+        this.navCtrl.pop();
       },
       (error) => {
         this.errorMessage = error;
