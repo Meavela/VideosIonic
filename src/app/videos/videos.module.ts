@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 
 import { VideosPage } from './videos.page';
 
-
 const routes: Routes = [
   {
     path: '',

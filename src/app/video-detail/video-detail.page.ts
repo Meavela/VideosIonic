@@ -56,7 +56,7 @@ export class VideoDetailPage implements OnInit {
   }
 
   onDeleteVideo(video: Video){
-    var lol = this.videosCollection.snapshotChanges().pipe(
+    var videos = this.videosCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
         var data = a.payload.doc.data() as Video;
         var id = a.payload.doc.id;
@@ -64,7 +64,7 @@ export class VideoDetailPage implements OnInit {
       }))
     );
     
-    lol.subscribe(item => {
+    videos.subscribe(item => {
       item.forEach(element =>{
         if(element.data.idVideo == video.idVideo){
           this.videosService.removeVideo(video, element.id);

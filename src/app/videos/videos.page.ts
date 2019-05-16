@@ -44,7 +44,6 @@ export class VideosPage implements OnInit {
 
   deconnect(){
     this.authService.signOutUser();
-    // this.router.navigate(['/home']);
     location.reload();
   }
 

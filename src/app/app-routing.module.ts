@@ -12,37 +12,30 @@ const routes: Routes = [
     loadChildren: './home/home.module#HomePageModule'
   },
   { 
-    path: 'videos', 
-    loadChildren: './pages/videos/videos.module#VideosPageModule' 
-    
-  },
-  { 
-    path: 'new', 
-    loadChildren: './pages/new/new.module#NewPageModule' 
-  },
-  { 
-    path: 'video-detail', 
-    loadChildren: './pages/video-detail/video-detail.module#VideoDetailPageModule' 
-  },
-  { 
     path: 'videos/:id', 
-    loadChildren: './pages/video-detail/video-detail.module#VideoDetailPageModule' 
-  },
-  { 
-    path: 'edit', 
-    loadChildren: './pages/edit/edit.module#EditPageModule' 
+    loadChildren: './video-detail/video-detail.module#VideoDetailPageModule' 
   },
   { 
     path: 'videos/edit/:id', 
-    loadChildren: './pages/edit/edit.module#EditPageModule' 
+    loadChildren: './edit/edit.module#EditPageModule' 
   },
   { 
-    path: 'signin', 
-    loadChildren: './pages/auth/signin/signin.module#SigninPageModule' 
+    path: 'videos', loadChildren: './videos/videos.module#VideosPageModule' 
   },
   { 
-    path: 'signup', 
-    loadChildren: './pages/auth/signup/signup.module#SignupPageModule' 
+    path: 'video-detail', loadChildren: './video-detail/video-detail.module#VideoDetailPageModule' 
+  },
+  { 
+    path: 'new', loadChildren: './new/new.module#NewPageModule' 
+  },
+  { 
+    path: 'edit', loadChildren: './edit/edit.module#EditPageModule' 
+  },
+  { 
+    path: 'signin', loadChildren: './signin/signin.module#SigninPageModule' 
+  },
+  { 
+    path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' 
   },
 ];
 

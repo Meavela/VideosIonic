@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title slot="start">Les vidéos</ion-title>
+    <ion-button slot="primary" (click)="deconnect()" *ngIf="isConnected; else notConnected">
+        <ion-icon ios="ios-contact" md="md-contact"></ion-icon>
+         Se déconnecter
+    </ion-button>
+    <ng-template #notConnected slot="primary">
+      <ion-button [routerLink]="['/', 'signin']" slot="primary">Se connecter</ion-button>
+      <ion-button [routerLink]="['/', 'signup']" slot="primary">S'inscrire</ion-button>
+    </ng-template>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card button *ngFor="let video of videos; let i = index" [routerLink]="['/', 'videos', video.idVideo]">
+    <ion-card-header>
+      <ion-card-title>{{ video.titre }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{ video.description }}        
+    </ion-card-content>
+  </ion-card>  
+</ion-content>
