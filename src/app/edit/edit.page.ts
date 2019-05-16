@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
+import { Events } from '@ionic/angular';
 
 @Component({
   selector: 'app-edit',
@@ -25,6 +26,7 @@ export class EditPage implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,  
+              public events: Events,
               private videosService: VideoService, 
               private router: Router, 
               private activatedRoute: ActivatedRoute, 
@@ -34,6 +36,7 @@ export class EditPage implements OnInit {
   }
 
   ngOnInit() {
+    this.events.publish('isConnected:changed', true);
     this.initForm();
     var idVideo = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.videosService.getSingleVideo(idVideo);

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { NavController, Events } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +13,7 @@ export class HomePage {
   public isConnected: boolean = false;
 
   constructor(private authService: AuthService,
-              private router: Router,
+              public events: Events,
               public navCtrl: NavController) 
   { 
   }
@@ -23,10 +23,11 @@ export class HomePage {
     if(currentUser != null){
       this.isConnected = true;
     }
+    
+    this.events.publish('isConnected:changed', this.isConnected);
   }
   deconnect(){
     this.authService.signOutUser();
-    // this.navCtrl.pop();
     location.reload();
   }
 }

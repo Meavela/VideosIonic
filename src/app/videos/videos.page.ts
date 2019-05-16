@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, Events } from '@ionic/angular';
 import { Video } from 'src/app/models/video.model';
 import { VideoService } from 'src/app/services/video.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -16,7 +16,8 @@ export class VideosPage implements OnInit {
 
   constructor(private authService: AuthService, 
               private videosService: VideoService, 
-              public navCtrl: NavController) 
+              public navCtrl: NavController,
+              public events: Events) 
   {
 
   }
@@ -35,6 +36,13 @@ export class VideosPage implements OnInit {
     );
   }
 
+  ionViewDidEnter(){
+    var currentUser = this.authService.currentUser();
+    if(currentUser != null){
+      this.isConnected = true;
+    }
+    this.events.publish('isConnected:changed', this.isConnected);
+  }
 
   deconnect(){
     this.authService.signOutUser();

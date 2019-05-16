@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { VideoService } from 'src/app/services/video.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { Events } from '@ionic/angular';
 
 @Injectable()
 
@@ -23,6 +24,7 @@ export class NewPage implements OnInit {
   constructor(private authService: AuthService, 
               private formBuilder: FormBuilder, 
               private router: Router, 
+              public events: Events,
               private videoService: VideoService) 
   { 
 
@@ -34,6 +36,8 @@ export class NewPage implements OnInit {
     if(currentUser != null){
       this.isConnected = true;
     }
+    
+    this.events.publish('isConnected:changed', this.isConnected);
     this.initForm();
   }
 

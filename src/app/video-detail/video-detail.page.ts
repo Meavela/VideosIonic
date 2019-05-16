@@ -7,6 +7,7 @@ import { Video } from 'src/app/models/video.model';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
+import { Events } from '@ionic/angular';
 
 @Component({
   selector: 'app-video-detail',
@@ -25,6 +26,7 @@ export class VideoDetailPage implements OnInit {
   constructor(private authService: AuthService, 
               private videosService: VideoService, 
               private router: Router, 
+              public events: Events,
               private activatedRoute: ActivatedRoute, db: AngularFirestore) 
   { 
     this.videosCollection = db.collection<Video>('videos');
@@ -45,6 +47,7 @@ export class VideoDetailPage implements OnInit {
         var currentUser = this.authService.currentUser();
         if(currentUser != null){
           this.isConnected = true;
+          this.events.publish('isConnected:changed', this.isConnected);
           if(currentUser.uid == video.idUtilisateur){
             this.sameUser = true;
           }

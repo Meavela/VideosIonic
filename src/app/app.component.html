@@ -14,8 +14,42 @@
               <ion-label>
                 {{p.title}}
               </ion-label>
+              <ion-label>
+              </ion-label>
             </ion-item>
           </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false" *ngIf="isConnected; else notConnected">
+            <ion-item (click)="deconnect()" [routerDirection]="'root'" [routerLink]="['/', 'home']">
+              <ion-icon slot="start" ios="ios-contact" md="md-contact"></ion-icon>
+              <ion-label>
+                Se déconnecter
+              </ion-label>
+              <ion-label>
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ng-template #notConnected>
+            <ion-menu-toggle auto-hide="false">
+              <ion-item [routerDirection]="'root'" [routerLink]="['/', 'signin']">
+                <ion-icon slot="start" ios="ios-contact" md="md-contact"></ion-icon>
+                <ion-label>
+                  Se connecter
+                </ion-label>
+                <ion-label>
+                </ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+            <ion-menu-toggle auto-hide="false">
+              <ion-item [routerDirection]="'root'" [routerLink]="['/', 'signup']">
+                <ion-icon slot="start" ios="ios-contact" md="md-contact"></ion-icon>
+                <ion-label>
+                  Créer un compte
+                </ion-label>
+                <ion-label>
+                </ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+          </ng-template>
         </ion-list>
       </ion-content>
     </ion-menu>

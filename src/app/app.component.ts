@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, Events } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -29,14 +30,20 @@ export class AppComponent {
     }
   ];
 
+  public isConnected: boolean = false;
   
   constructor(
     private platform: Platform,
+    private authService: AuthService,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
+    private events: Events,
     db: AngularFirestore
   ) {
     this.initializeApp();
+    this.events.subscribe('isConnected:changed', isConnected => {
+      this.isConnected = isConnected;
+    });
   }
 
   initializeApp() {
@@ -44,5 +51,10 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.show();
     });
+  }
+
+  deconnect(){
+    this.authService.signOutUser();
+    location.reload();
   }
 }

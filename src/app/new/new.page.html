@@ -4,14 +4,6 @@
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
     <ion-title slot="start">Ajouter une vidéo</ion-title>
-    <ion-button slot="primary" (click)="deconnect()" *ngIf="isConnected; else notConnected">
-        <ion-icon ios="ios-contact" md="md-contact"></ion-icon>
-         Se déconnecter
-    </ion-button>
-    <ng-template #notConnected slot="primary">
-      <ion-button [routerLink]="['/', 'signin']" slot="primary">Se connecter</ion-button>
-      <ion-button [routerLink]="['/', 'signup']" slot="primary">S'inscrire</ion-button>
-    </ng-template>
   </ion-toolbar>
 </ion-header>
 
