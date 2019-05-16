@@ -73,6 +73,7 @@ export class NewPage implements OnInit {
         if(idVideo == video.idVideo && !passed){
           passed = true;
           idVideo++;
+          idVideo++;
           this.toAdd.idVideo = idVideo;
           this.videoService.createNewVideo(this.toAdd);
           this.router.navigate(['/videos']);

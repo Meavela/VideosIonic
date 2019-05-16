@@ -20,7 +20,7 @@
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false" *ngIf="isConnected; else notConnected">
             <ion-item (click)="deconnect()" [routerDirection]="'root'" [routerLink]="['/', 'home']">
-              <ion-icon slot="start" ios="ios-contact" md="md-contact"></ion-icon>
+              <ion-icon slot="start" name="log-out"></ion-icon>
               <ion-label>
                 Se déconnecter
               </ion-label>

@@ -40,7 +40,7 @@ export class VideoDetailPage implements OnInit {
       item.forEach(video => {
         var date = new Date(video.date.seconds * 1000);
 
-        video.date = (date.getDate()+1)+"/0"+(date.getMonth()+1)+"/"+(date.getFullYear());
+        video.date = (date.getDate())+"/0"+(date.getMonth()+1)+"/"+(date.getFullYear());
 
         this.result.pop();
         this.result.push(video);

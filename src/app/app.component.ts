@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from './services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -35,6 +36,7 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private authService: AuthService,
+    private router: Router, 
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private events: Events,
@@ -55,6 +57,7 @@ export class AppComponent {
 
   deconnect(){
     this.authService.signOutUser();
-    location.reload();
+    this.router.navigate(['/home']);
+    // location.reload();
   }
 }
