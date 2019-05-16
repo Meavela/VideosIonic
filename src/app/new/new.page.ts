@@ -64,17 +64,25 @@ export class NewPage implements OnInit {
     this.videoService.getVideos();
     var allVideos = this.videoService.videos;
     var idVideo = 0;
+    var passed = false;
     allVideos.forEach(videos => {
       videos.forEach(video => {
-        if (video.id > idVideo) {
-          idVideo = video.id;
+        if (video.idVideo > idVideo) {
+          idVideo = video.idVideo;
+        }
+        if(idVideo == video.idVideo && !passed){
+          passed = true;
+          idVideo++;
+          this.toAdd.idVideo = idVideo;
+          this.videoService.createNewVideo(this.toAdd);
+          this.router.navigate(['/videos']);
         }
       });
     });
-    idVideo++;
-    this.toAdd.idVideo = idVideo;
-    this.videoService.createNewVideo(this.toAdd);
-    this.router.navigate(['/videos']);
+    
+    // this.videoService.createNewVideo(this.toAdd);
+    // this.router.navigate(['/videos']);
+    
   }
 
   onUploadFile(file: File) {
