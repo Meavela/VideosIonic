@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Editer profil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="onSaveProfile()" *ngFor="let item of result">
+    <ion-item>
+      <ion-label>DisplayName</ion-label>
+      <ion-input type="text" [(ngModel)]="toAdd.displayName" name="displayName" [value]="item.displayName" [placeholder]="item.displayName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Image</ion-label>
+      <ion-input type="file" (change)="detectFiles($event)" accept="image/*" [value]="item.image"></ion-input>
+      <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
+      <p class="text-success" *ngIf="fileIsUploading">Fichier en chargement...</p>
+    </ion-item>
+    <ion-button color="success" [disabled]="fileIsUploading" type="submit">
+      Editer
+    </ion-button>
+  </form>
+</ion-content>
