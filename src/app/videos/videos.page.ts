@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild, ElementRef } from '@angular/core';
 import { NavController, Events } from '@ionic/angular';
 import { Video } from 'src/app/models/video.model';
 import { VideoService } from 'src/app/services/video.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { AnimationService, AnimationBuilder } from 'css-animator';
 
 @Component({
   selector: 'app-videos',
@@ -10,19 +11,20 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./videos.page.scss'],
 })
 export class VideosPage implements OnInit {
-  
+
   public videos: Video[];
   isConnected: boolean = false;
 
   constructor(private authService: AuthService, 
               private videosService: VideoService, 
               public navCtrl: NavController,
+              public animationService: AnimationService,
               public events: Events) 
   {
-
   }
 
   ngOnInit() {
+
     var currentUser = this.authService.currentUser();
     if(currentUser != null){
       this.isConnected = true;
@@ -37,6 +39,7 @@ export class VideosPage implements OnInit {
   }
 
   ionViewDidEnter(){
+
     var currentUser = this.authService.currentUser();
     if(currentUser != null){
       this.isConnected = true;

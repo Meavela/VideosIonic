@@ -9,7 +9,11 @@
 
 <ion-content padding>
 <ion-card *ngFor="let item of result">
-  <ion-card-header>
+  <ion-card-header class="animated fadeInDown" 
+                    style="
+                      animation-delay: 0s;
+                      animation-iteration-count: 1;
+                    ">
     <ion-card-title>{{ item.titre }}</ion-card-title>
     <ion-card-subtitle>
         <ion-icon ios="ios-videocam" md="md-videocam"></ion-icon>
@@ -28,16 +32,38 @@
   </ion-card-header>
   <ion-card-content text-center>
     <ion-img style="height: 300px; width: auto;
-    margin: auto;
-    display: block;" *ngIf="item.image" [src]="item.image"></ion-img>
+                    margin: auto;
+                    animation-delay: 0s;
+                    animation-iteration-count: 1;
+                    display: block;" 
+             *ngIf="item.image" 
+             [src]="item.image"
+             class="animated bounceIn"></ion-img>
     <br>
-    {{ item.description }}
+    <div class="animated fadeInDown" 
+          style="animation-delay: 0s;
+                 animation-iteration-count: 1;">
+      {{ item.description }}
+    </div>
     <ion-item *ngIf="sameUser">
-      <ion-button expand="full" color="danger" (click)="onDeleteVideo(item)" >
+      <ion-button expand="full" 
+                  color="danger" 
+                  (click)="onDeleteVideo(item)" 
+                  class="animated wobble" 
+                  style="
+                    animation-delay: 1s;
+                    animation-iteration-count: 2;
+                  ">
           <ion-icon name="close" slot="start"></ion-icon>
           Supprimer vidéo
       </ion-button>
-      <ion-button expand="full" [routerLink]="['/', 'videos', 'edit', item.idVideo]">
+      <ion-button expand="full" 
+                  [routerLink]="['/', 'videos', 'edit', item.idVideo]"
+                  class="animated wobble" 
+                  style="
+                    animation-delay: 1s;
+                    animation-iteration-count: 2;
+                  ">
           <ion-icon ios="ios-create" md="md-create" slot="start"></ion-icon>
           Editer vidéo
       </ion-button>

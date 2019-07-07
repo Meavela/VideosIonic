@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { AnimationService, AnimationBuilder } from 'css-animator';
 
 @Component({
   selector: 'app-signin',
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./signin.page.scss'],
 })
 export class SigninPage implements OnInit {
+
 
   signinForm: FormGroup;
   errorMessage: string;

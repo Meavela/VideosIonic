@@ -44,7 +44,14 @@
         <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
         <p class="text-success" *ngIf="fileIsUploading">Fichier en chargement...</p>
       </ion-item>
-      <ion-button color="success" [disabled]="fileIsUploading" type="submit">
+      <ion-button color="success" 
+                  [disabled]="fileIsUploading" 
+                  type="submit"
+                  class="animated wobble" 
+                  style="
+                    animation-delay: 1s;
+                    animation-iteration-count: 2;
+                  ">
         Ajouter
       </ion-button>  
     </form>

@@ -22,8 +22,10 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
 
+import { AnimationService, AnimatesDirective } from 'css-animator';
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,AnimatesDirective],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -41,7 +43,8 @@ import { AuthGuardService } from './services/auth-guard.service';
     AuthGuardService,
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    AnimationService
   ],
   bootstrap: [AppComponent]
 })

@@ -8,7 +8,14 @@
 </ion-header>
 
 <ion-content>
-  <ion-card button *ngFor="let video of videos; let i = index" [routerLink]="['/', 'videos', video.idVideo]">
+  <ion-card button 
+            *ngFor="let video of videos; let i = index" 
+            [routerLink]="['/', 'videos', video.idVideo]"
+            class="animated flipInX" 
+            style="
+              animation-delay: 1s;
+              animation-iteration-count: 1;
+            ">
     <ion-card-header>
       <ion-card-title>{{ video.titre }}</ion-card-title>
     </ion-card-header>

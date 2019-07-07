@@ -21,7 +21,13 @@
                      [(ngModel)]="toAdd.password"
                      name="password"></ion-input>
       </ion-item>
-      <ion-button color="success" type="submit"> Go !</ion-button>
+      <ion-button class="animated wobble" 
+                  color="success" 
+                  type="submit"
+                  style="
+                    animation-delay: 1s;
+                    animation-iteration-count: 2;
+                  "> Go !</ion-button>
     </form>
     <p class="text-danger">{{ errorMessage }}</p>
 </ion-content>
