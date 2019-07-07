@@ -22,6 +22,7 @@ export class VideoDetailPage implements OnInit {
   public usersCollection: AngularFirestoreCollection<User>;
   public items: Observable<any[]>;
   public result: Array<any> = [];
+  public comments: Array<any> = [];
   public userOfVideo: Array<any> = [];
   public sameUser: boolean = false;
   isConnected: boolean = false;
@@ -38,8 +39,26 @@ export class VideoDetailPage implements OnInit {
 
   ngOnInit() {
     this.result = [];
+    this.comments = [];
+
     var idVideo = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.videosService.getSingleVideo(idVideo);
+
+    this.videosService.getCommentsOfVideo(idVideo).subscribe(item => {
+      item.forEach(comment => {
+        var date = new Date(comment["date"].seconds * 1000);
+
+        comment["date"] = (date.getDate())+"/0"+(date.getMonth()+1)+"/"+(date.getFullYear());
+        this.authService.getSingleUser(comment["idUser"]).subscribe(element => {
+          element.forEach(item => {
+            comment["userPseudo"] = item["pseudo"];
+            
+            this.comments.push(comment);
+          });
+        });
+      });
+    });
+    
     this.videosService.videos.subscribe(item =>{
       item.forEach(video => {
         var date = new Date(video.date.seconds * 1000);
@@ -49,11 +68,8 @@ export class VideoDetailPage implements OnInit {
         this.result.pop();
         this.result.push(video);
         
-        // console.log(userOfVideo);
         this.authService.getSingleUser(video.idUser).subscribe(item => {
-          // console.log(item[0]);
           item.forEach(user => {
-            // console.log(user.prenom);
             this.userOfVideo.pop();
             this.userOfVideo.push(user);
           });

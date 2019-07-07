@@ -25,6 +25,10 @@ export class VideoService {
     this.videos = this.db.collection('videos', ref => ref.where('idVideo', '==', id)).valueChanges();
   }
 
+  getCommentsOfVideo(idVideo: number){
+    return this.db.collection('comments', ref => ref.where('idVideo', '==', idVideo)).valueChanges();
+  }
+
   createNewVideo(video: Object){
     this.db.collection('videos').add(video);
     this.getVideos();
