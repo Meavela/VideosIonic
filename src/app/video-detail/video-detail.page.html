@@ -68,6 +68,26 @@
           Editer vidéo
       </ion-button>
     </ion-item>
+
+    <br>
+
+    <form *ngIf="isConnected; else elseBlock" (ngSubmit)="onSaveComment(item)">
+      <ion-item>
+        <ion-label>Votre Avis : </ion-label>
+        <ion-input type="text" #avis [(ngModel)]="commentToAdd.avis" name="avis"></ion-input>
+      </ion-item>
+      <ion-button color="success" 
+                  [disabled]="fileIsUploading" 
+                  type="submit"
+                  class="animated wobble" 
+                  style="
+                    animation-delay: 1s;
+                    animation-iteration-count: 2;
+                  ">
+        Ajouter
+      </ion-button>
+    </form>
+
     <ion-card *ngFor="let comment of comments; let i = index" 
               class="animated flipInX" 
               style="
@@ -83,9 +103,30 @@
         </ion-card-subtitle>   
       </ion-card-header>
       <ion-card-content>
-        {{ comment.avis }}        
+        {{ comment.avis }}
+        <!-- <ion-item> -->
+        <ion-button expand="block" 
+                  color="danger" 
+                  (click)="onDeleteComment(comment)" 
+                  class="animated wobble" 
+                  style="
+                    animation-delay: 1s;
+                    animation-iteration-count: 2;
+                  ">
+          <ion-icon name="close" slot="start"></ion-icon>
+        </ion-button>
+        <!-- <ion-button expand="block" 
+                    [routerLink]="['/', 'videos', 'edit', item.idVideo]"
+                    class="animated wobble" 
+                    style="
+                      animation-delay: 1s;
+                      animation-iteration-count: 2;
+                    ">
+          <ion-icon ios="ios-create" md="md-create" slot="start"></ion-icon>
+        </ion-button>   -->
+        <!-- </ion-item>       -->
       </ion-card-content>
-    </ion-card>  
+    </ion-card> 
   </ion-card-content>
 </ion-card>
 </ion-content>

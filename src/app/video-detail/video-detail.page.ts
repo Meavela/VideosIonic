@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
@@ -7,8 +7,9 @@ import { Video } from 'src/app/models/video.model';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
-import { Events } from '@ionic/angular';
+import { NavController, Events } from '@ionic/angular';
 import { User } from 'src/app/models/user.model';
+import { Comment } from 'src/app/models/comment.model';
 
 @Component({
   selector: 'app-video-detail',
@@ -19,6 +20,7 @@ export class VideoDetailPage implements OnInit {
   
 
   public videosCollection: AngularFirestoreCollection<Video>;
+  public commentsCollection: AngularFirestoreCollection<Comment>;
   public usersCollection: AngularFirestoreCollection<User>;
   public items: Observable<any[]>;
   public result: Array<any> = [];
@@ -30,17 +32,19 @@ export class VideoDetailPage implements OnInit {
   constructor(private authService: AuthService, 
               private videosService: VideoService, 
               private router: Router, 
+              public navCtrl: NavController,
               public events: Events,
-              private activatedRoute: ActivatedRoute, db: AngularFirestore) 
+              private activatedRoute: ActivatedRoute, 
+              db: AngularFirestore) 
   { 
     this.videosCollection = db.collection<Video>('videos');
     this.usersCollection = db.collection<User>('users');
+    this.commentsCollection = db.collection<Comment>('comments');
   }
 
   ngOnInit() {
     this.result = [];
-    this.comments = [];
-
+    
     var idVideo = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.videosService.getSingleVideo(idVideo);
 
@@ -48,7 +52,7 @@ export class VideoDetailPage implements OnInit {
       item.forEach(comment => {
         var date = new Date(comment["date"].seconds * 1000);
 
-        comment["date"] = (date.getDate())+"/0"+(date.getMonth()+1)+"/"+(date.getFullYear());
+        comment["date"] = "le "+(date.getDate())+"/"+(date.getMonth()+1)+"/"+(date.getFullYear())+" à "+(date.getHours())+":"+(date.getMinutes())+":"+(date.getSeconds());
         this.authService.getSingleUser(comment["idUser"]).subscribe(element => {
           element.forEach(item => {
             comment["userPseudo"] = item["pseudo"];
@@ -87,6 +91,66 @@ export class VideoDetailPage implements OnInit {
       });
     });
     
+  }
+  commentToAdd: any = {};
+  @ViewChild('avis', {read: ElementRef}) avisElement:ElementRef;
+
+  onSaveComment(video: Video){
+    // date
+    this.commentToAdd.date = new Date();
+
+    var currentUser = this.authService.currentUser();
+    var idComment = 0;
+    var passed = false;
+    var countComment = 0;
+    this.authService.getSingleUserByMail(currentUser.email).subscribe(item => {
+      item.forEach(element => {
+        // idUser
+        this.commentToAdd.idUser = element["idUser"];
+        // idVideo
+        this.commentToAdd.idVideo = video["idVideo"];
+        // idComment
+        this.videosService.getComments().forEach(comments => {
+          comments.forEach(comment => {
+            if (comment["idComment"] > idComment) {
+              idComment = comment["idComment"];
+            }
+            countComment++;
+            if(comments.length == countComment && !passed){
+              passed = true;
+              this.commentToAdd.idComment = idComment+1;
+              this.videosService.addComment(this.commentToAdd);
+
+              this.avisElement.nativeElement.value = "";
+              
+              while(this.comments.length > 0) {
+                this.comments.pop();
+              }
+            }
+          });
+        });
+      });
+    });
+  }
+
+  onDeleteComment(comment){
+    var comments = this.commentsCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        var data = a.payload.doc.data() as Comment;
+        var id = a.payload.doc.id;
+        return { id, data };
+      }))
+    );
+
+    comments.subscribe(item => {
+      item.forEach(element => {
+        if(element.data.idComment == comment.idComment){
+          this.videosService.removeComment(element.id);
+          
+          location.reload();
+        }
+      });
+    });
   }
 
   onDeleteVideo(video: Video){

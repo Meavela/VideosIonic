@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase';
 import { Video } from '../models/video.model';
+import { Comment } from '../models/comment.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
@@ -19,6 +20,14 @@ export class VideoService {
 
   getVideos(){
     this.videos = this.db.collection('videos').valueChanges();
+  }
+
+  getComments(){
+    return this.db.collection('comments').valueChanges();
+  }
+
+  addComment(comment: Object){
+    this.db.collection('comments').add(comment);
   }
 
   getSingleVideo(id: number){
@@ -39,6 +48,15 @@ export class VideoService {
       console.log("Document successfully update!");
     }).catch(function(error) {
         console.error("Error updating document: ", error);
+    });
+  }
+
+  removeComment(idToRemove: string){
+    console.log("here");
+    this.db.collection('comments').doc(idToRemove).delete().then(function() {
+      console.log("Document successfully deleted!");
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
     });
   }
 
