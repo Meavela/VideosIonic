@@ -34,9 +34,15 @@ export class VideosPage implements OnInit {
     this.videosService.videos.subscribe(
       (videos: Video[]) => {
         this.videos = videos;
+        this.allData = videos;
+        this.filterData = this.allData;
       }
     );
   }
+
+  allData = []; //Store all data from provider
+  filterData = [];//Store filtered data
+  searchTerm: string = '';
 
   ionViewDidEnter(){
 
@@ -45,6 +51,19 @@ export class VideosPage implements OnInit {
       this.isConnected = true;
     }
     this.events.publish('isConnected:changed', this.isConnected);
+
+  }
+
+  setFilteredLocations(){
+    if(this.searchTerm == ''){
+      this.filterData = this.allData;
+    }
+    else{
+      this.filterData = this.allData.filter((item) => {
+        return item.titre.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+      });
+  
+    }
   }
 
   deconnect(){

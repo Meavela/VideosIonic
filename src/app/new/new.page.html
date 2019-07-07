@@ -34,9 +34,12 @@
             <ion-select-option value="Thriller">Thriller</ion-select-option>
           </ion-select>      
         </ion-item>
-      <ion-item>
+      <ion-item >
         <ion-label>Description</ion-label>
-        <ion-input type="text" [(ngModel)]="toAdd.description" name="description"></ion-input>
+        <ion-textarea type="text" 
+                      spellcheck="true" 
+                      [(ngModel)]="toAdd.description" 
+                      name="description"></ion-textarea>
       </ion-item>
       <ion-item>
         <ion-label>Image</ion-label>

@@ -8,8 +8,9 @@
 </ion-header>
 
 <ion-content>
+  <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredLocations()"></ion-searchbar>
   <ion-card button 
-            *ngFor="let video of videos; let i = index" 
+            *ngFor="let video of filterData; let i = index" 
             [routerLink]="['/', 'videos', video.idVideo]"
             class="animated flipInX" 
             style="

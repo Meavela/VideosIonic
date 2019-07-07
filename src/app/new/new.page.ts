@@ -75,14 +75,17 @@ export class NewPage implements OnInit {
           idVideo++;
           idVideo++;
           this.toAdd.idVideo = idVideo;
-          this.videoService.createNewVideo(this.toAdd);
-          this.router.navigate(['/videos']);
+          this.authService.getSingleUserByMail(currentUser.email).subscribe(item => {
+            item.forEach(element => {
+              console.log(element)
+              this.toAdd.idUser = element["idUser"];
+              this.videoService.createNewVideo(this.toAdd);
+              this.router.navigate(['/videos']);
+            });
+          });
         }
       });
     });
-    
-    // this.videoService.createNewVideo(this.toAdd);
-    // this.router.navigate(['/videos']);
     
   }
 
