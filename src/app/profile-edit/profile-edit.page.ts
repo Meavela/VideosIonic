@@ -37,7 +37,6 @@ export class ProfileEditPage implements OnInit {
     
     this.events.publish('isConnected:changed', this.isConnected);
 
-    console.log(this.currentUser);
     this.result.push(this.currentUser);
   }
 
@@ -57,7 +56,16 @@ export class ProfileEditPage implements OnInit {
     if(this.toAdd.displayName == null) {
       this.toAdd.displayName = this.currentUser["displayName"];
     }
-    this.authService.updateUser(this.toAdd.displayName,this.fileUrl);
+    var passed = false;
+    var userToModify = this.authService.getSingleUserByMail(this.currentUser["email"]);
+    userToModify.subscribe(item => {
+      item.forEach(element => {
+        if(!passed){
+          passed = true;
+          this.authService.updateUser(this.toAdd.displayName,this.fileUrl, element.idUser, this.currentUser["email"]);
+        }
+      });
+    });
     
     this.router.navigate(['/profile']);
   }

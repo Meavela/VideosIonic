@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { Events } from '@ionic/angular';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-video-detail',
@@ -18,8 +19,10 @@ export class VideoDetailPage implements OnInit {
   
 
   public videosCollection: AngularFirestoreCollection<Video>;
+  public usersCollection: AngularFirestoreCollection<User>;
   public items: Observable<any[]>;
   public result: Array<any> = [];
+  public userOfVideo: Array<any> = [];
   public sameUser: boolean = false;
   isConnected: boolean = false;
 
@@ -30,6 +33,7 @@ export class VideoDetailPage implements OnInit {
               private activatedRoute: ActivatedRoute, db: AngularFirestore) 
   { 
     this.videosCollection = db.collection<Video>('videos');
+    this.usersCollection = db.collection<User>('users');
   }
 
   ngOnInit() {
@@ -44,6 +48,17 @@ export class VideoDetailPage implements OnInit {
 
         this.result.pop();
         this.result.push(video);
+        
+        // console.log(userOfVideo);
+        this.authService.getSingleUser(video.idUser).subscribe(item => {
+          // console.log(item[0]);
+          item.forEach(user => {
+            // console.log(user.prenom);
+            this.userOfVideo.pop();
+            this.userOfVideo.push(user);
+          });
+        });
+
         var currentUser = this.authService.currentUser();
         if(currentUser != null){
           this.isConnected = true;

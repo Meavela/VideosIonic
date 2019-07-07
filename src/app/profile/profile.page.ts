@@ -25,9 +25,9 @@ export class ProfilePage implements OnInit {
     
     this.events.publish('isConnected:changed', this.isConnected);
 
-    console.log(currentUser);
     this.result.push(currentUser);
   }
+  
   deconnect(){
     this.authService.signOutUser();
     this.router.navigate(['/home']);

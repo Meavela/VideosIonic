@@ -6,6 +6,7 @@ export class Video {
     genre: string;
     date: Date;
     description: string;
+    idUser: number;
     idUtilisateur: string;
     image: string;
 
@@ -16,6 +17,7 @@ export class Video {
                 image: string,
                 date: Date,
                 idUtilisateur: string,
+                idUser: number,
                 idVideo: number){
         this.idVideo = idVideo;
         this.titre = titre;
@@ -24,6 +26,7 @@ export class Video {
         this.date = date;
         this.description = description;
         this.idUtilisateur = idUtilisateur;
+        this.idUser = idUser;
         this.image = image;
     }
 }

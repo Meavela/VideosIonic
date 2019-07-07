@@ -29,7 +29,7 @@ export class SignupPage implements OnInit {
   }
   toAdd: any = {};
   onSubmit() {
-    this.authService.createNewUser(this.toAdd.email, this.toAdd.password).then(
+    this.authService.createNewUser(this.toAdd.email, this.toAdd.password, this.toAdd).then(
       () => {
         this.router.navigate(['/home']);
       },
