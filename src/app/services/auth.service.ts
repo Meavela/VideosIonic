@@ -43,13 +43,13 @@ export class AuthService {
     var passed = false;
     allUsers.forEach(users => {
       users.forEach(userElement => {
-        if (userElement.idUser > idUser) {
-          idUser = userElement.idUser;
+        if (userElement["idUser"] > idUser) {
+          idUser = userElement["idUser"];
         }
         countUser++;
         if(countUser == users.length && !passed){
           passed = true;
-          this.toAdd.mail = user.email;
+          this.toAdd.mail = user["email"];
           this.toAdd.idUser = idUser+1;
           this.db.collection('users').add(this.toAdd);
         }

@@ -62,7 +62,7 @@ export class ProfileEditPage implements OnInit {
       item.forEach(element => {
         if(!passed){
           passed = true;
-          this.authService.updateUser(this.toAdd.displayName,this.fileUrl, element.idUser, this.currentUser["email"]);
+          this.authService.updateUser(this.toAdd.displayName,this.fileUrl, element["idUser"], this.currentUser["email"]);
         }
       });
     });
