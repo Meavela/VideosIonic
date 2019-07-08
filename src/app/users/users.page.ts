@@ -54,7 +54,7 @@ export class UsersPage implements OnInit {
     }
     else{
       this.filterData = this.allData.filter((item) => {
-        return item.titre.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+        return item.pseudo.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
       });
   
     }

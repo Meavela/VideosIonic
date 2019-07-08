@@ -10,10 +10,10 @@
 <ion-content padding>
     <ion-card *ngFor="let item of result">
       <ion-card-header class="animated fadeInDown" 
-      style="
-        animation-delay: 0s;
-        animation-iteration-count: 1;
-      ">
+                        style="
+                          animation-delay: 0s;
+                          animation-iteration-count: 1;
+                        ">
         <ion-card-title>{{ item.pseudo }}</ion-card-title>
         <ion-card-subtitle>
           <ion-icon ios="ios-mail" md="md-mail"></ion-icon>
@@ -21,10 +21,20 @@
         </ion-card-subtitle>
       </ion-card-header>
       <ion-card-content text-center>
-        <ion-img style="height: 300px; width: auto;
-        margin: auto;
-        display: block;" *ngIf="item.image" [src]="item.image"></ion-img>
-        {{ item.description }}
+        <ion-img style="height: 300px; 
+                        width: auto;
+                        margin: auto;
+                        animation-delay: 0s;
+                        animation-iteration-count: 1;
+                        display: block;" 
+                 *ngIf="item.image"
+                 class="animated bounceIn" 
+                 [src]="item.image"></ion-img>
+        <div class="animated fadeInDown" 
+        style="animation-delay: 0s;
+               animation-iteration-count: 1;">
+          {{ item.description }}
+        </div>
       </ion-card-content>
     </ion-card>
 </ion-content>
