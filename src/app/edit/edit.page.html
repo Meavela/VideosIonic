@@ -23,7 +23,7 @@
         </ion-item>
         <ion-item>
           <ion-label>Genre</ion-label>
-          <ion-select [(ngModel)]="toAdd.genre" name="genre" [value]="item.genre" [placeholder]="item.genre">
+          <ion-select multiple="true" [(ngModel)]="toAdd.genre" name="genre" [value]="item.genre" [placeholder]="item.genre">
               <ion-select-option value="Fantastique" selected="true">Fantastique</ion-select-option>
               <ion-select-option value="Romance" [selected]="true">Romance</ion-select-option>            
               <ion-select-option value="Aventure" [selected]="true">Aventure</ion-select-option>

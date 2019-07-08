@@ -65,22 +65,38 @@ export class NewPage implements OnInit {
     var allVideos = this.videoService.videos;
     var idVideo = 0;
     var passed = false;
+    var countVideo = 0;
     allVideos.forEach(videos => {
       videos.forEach(video => {
         if (video.idVideo > idVideo) {
           idVideo = video.idVideo;
         }
-        if(idVideo == video.idVideo && !passed){
+        countVideo++;
+        if(videos.length == countVideo && !passed){
           passed = true;
-          idVideo++;
           idVideo++;
           this.toAdd.idVideo = idVideo;
           this.authService.getSingleUserByMail(currentUser.email).subscribe(item => {
             item.forEach(element => {
               console.log(element)
               this.toAdd.idUser = element["idUser"];
-              this.videoService.createNewVideo(this.toAdd);
-              this.router.navigate(['/videos']);
+              console.log(this.toAdd);
+              var genres = "";
+              var count = 0;
+              this.toAdd["genre"].forEach(element => {
+                genres += element;
+                count++;
+                
+                if(this.toAdd["genre"].length != count){
+                  genres += ",";
+                }else {
+                  this.toAdd["genre"] = genres;
+                  
+                  this.videoService.createNewVideo(this.toAdd);
+                  this.router.navigate(['/videos']);
+                }
+              });
+              
             });
           });
         }

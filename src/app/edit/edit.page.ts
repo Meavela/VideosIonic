@@ -74,6 +74,18 @@ export class EditPage implements OnInit {
 
     if(this.toAdd.genre != null) {
       this.result[0].genre = this.toAdd.genre;
+      var genres = "";
+      var count = 0;
+      this.result[0].genre.forEach(element => {
+        genres += element;
+        count++;
+        
+        if(this.toAdd["genre"].length != count){
+          genres += ",";
+        }else {
+          this.result[0].genre = genres;
+        }
+      });
     }
 
     if(this.toAdd.description != null) {
