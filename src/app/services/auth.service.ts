@@ -73,7 +73,7 @@ export class AuthService {
     );
   }
   toUpdate:any = {}
-  modifyUser(displayName: string, idUser: number, email: string){
+  modifyUser(displayName: string, idUser: number, email: string, photoURL: string, description: string){
     var resultDataId = this.db.collection<User>('users').snapshotChanges().pipe(
       map(actions => actions.map(a => {
         var data = a.payload.doc.data() as User;
@@ -81,7 +81,7 @@ export class AuthService {
         return { id, data };
       }))
     );
-    
+    console.log(photoURL);
     var passed = false;
     resultDataId.subscribe(item => {
       item.forEach(element =>{
@@ -90,6 +90,8 @@ export class AuthService {
           this.toUpdate.pseudo = displayName;
           this.toUpdate.mail = email;
           this.toUpdate.idUser = idUser;
+          this.toUpdate.image = photoURL;
+          this.toUpdate.description = description;
           this.db.collection('users').doc(element.id).update(this.toUpdate).then(function() {
             console.log("Document successfully update!");
           }).catch(function(error) {
@@ -100,8 +102,8 @@ export class AuthService {
     });
   }
 
-  updateUser(displayName: string, photoURL: string, idUser: number, email:string){
-    this.modifyUser(displayName, idUser, email);
+  updateUser(displayName: string, photoURL: string, idUser: number, email:string, description: string){
+    this.modifyUser(displayName, idUser, email, photoURL, description);
     return new Promise(
       (resolve, reject) => {
         firebase.auth().onAuthStateChanged(function (user) {

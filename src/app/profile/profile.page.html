@@ -12,13 +12,14 @@
 <ion-content padding>
   <ion-card *ngFor="let item of result">
     <ion-card-header>
-      <ion-card-title>{{ item.displayName }}</ion-card-title>
-      <ion-card-subtitle>{{ item.email }}</ion-card-subtitle>
+      <ion-card-title>{{ item.pseudo }}</ion-card-title>
+      <ion-card-subtitle>{{ item.mail }}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content text-center>
-        <ion-img style="height: 300px; width: auto;
-        margin: auto;
-        display: block;" *ngIf="item.photoURL" [src]="item.photoURL"></ion-img>
+      <ion-img style="height: 300px; width: auto;
+      margin: auto;
+      display: block;" *ngIf="item.image" [src]="item.image"></ion-img>
+      {{ item.description }}
       <ion-button expand="full" [routerLink]="['/', 'profile', 'edit']">
         <ion-icon ios="ios-create" md="md-create" slot="start"></ion-icon>
         Editer profil

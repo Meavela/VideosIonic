@@ -56,13 +56,17 @@ export class ProfileEditPage implements OnInit {
     if(this.toAdd.displayName == null) {
       this.toAdd.displayName = this.currentUser["displayName"];
     }
+    if(this.toAdd.description == null) {
+      this.toAdd.description = this.currentUser["description"];
+    }
     var passed = false;
     var userToModify = this.authService.getSingleUserByMail(this.currentUser["email"]);
+    console.log(userToModify);
     userToModify.subscribe(item => {
       item.forEach(element => {
         if(!passed){
           passed = true;
-          this.authService.updateUser(this.toAdd.displayName,this.fileUrl, element["idUser"], this.currentUser["email"]);
+          this.authService.updateUser(this.toAdd.displayName,this.fileUrl, element["idUser"], this.currentUser["email"], this.toAdd.description);
         }
       });
     });

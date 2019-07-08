@@ -18,6 +18,7 @@ export class ProfilePage implements OnInit {
               public events: Events) { }
 
   ngOnInit() {
+
     var currentUser = this.authService.currentUser();
     if(currentUser != null){
       this.isConnected = true;
@@ -25,7 +26,19 @@ export class ProfilePage implements OnInit {
     
     this.events.publish('isConnected:changed', this.isConnected);
 
-    this.result.push(currentUser);
+    var user = this.authService.getSingleUserByMail(currentUser["email"]);
+    var passed = false;
+    user.subscribe(item => {
+      item.forEach(element => {
+        if(!passed){
+          passed = true;
+          this.result.pop();
+          this.result.push(element);
+        }
+      });
+    });
+
+    
   }
   
   deconnect(){
