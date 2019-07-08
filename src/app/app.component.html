@@ -21,6 +21,16 @@
         </ion-list>
       </ion-content>
       <ion-footer>
+        <ion-menu-toggle auto-hide="false">
+          <ion-item [routerDirection]="'root'" [routerLink]="['/', 'users']">
+            <ion-icon slot="start" ios="ios-contacts" md="md-contacts"></ion-icon>
+            <ion-label>
+              Utilisateurs
+            </ion-label>
+            <ion-label>
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
         <ion-menu-toggle auto-hide="false" *ngIf="isConnected">
           <ion-item [routerDirection]="'root'" [routerLink]="['/', 'profile']">
             <ion-icon slot="start" ios="ios-contact" md="md-contact"></ion-icon>

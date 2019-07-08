@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase';
 import { Video } from '../models/video.model';
-import { Comment } from '../models/comment.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({

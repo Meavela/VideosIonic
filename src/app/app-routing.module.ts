@@ -20,22 +20,28 @@ const routes: Routes = [
     loadChildren: './edit/edit.module#EditPageModule' 
   },
   { 
-    path: 'videos', loadChildren: './videos/videos.module#VideosPageModule' 
+    path: 'videos', 
+    loadChildren: './videos/videos.module#VideosPageModule' 
   },
   { 
-    path: 'video-detail', loadChildren: './video-detail/video-detail.module#VideoDetailPageModule' 
+    path: 'video-detail', 
+    loadChildren: './video-detail/video-detail.module#VideoDetailPageModule' 
   },
   { 
-    path: 'new', loadChildren: './new/new.module#NewPageModule' 
+    path: 'new', 
+    loadChildren: './new/new.module#NewPageModule' 
   },
   { 
-    path: 'edit', loadChildren: './edit/edit.module#EditPageModule' 
+    path: 'edit', 
+    loadChildren: './edit/edit.module#EditPageModule' 
   },
   { 
-    path: 'signin', loadChildren: './signin/signin.module#SigninPageModule' 
+    path: 'signin', 
+    loadChildren: './signin/signin.module#SigninPageModule' 
   },
   { 
-    path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' 
+    path: 'signup', 
+    loadChildren: './signup/signup.module#SignupPageModule' 
   },
   { 
     path: 'profile', 
@@ -44,6 +50,18 @@ const routes: Routes = [
   { 
     path: 'profile/edit', 
     loadChildren: './profile-edit/profile-edit.module#ProfileEditPageModule' 
+  },
+  { 
+    path: 'users', 
+    loadChildren: './users/users.module#UsersPageModule' 
+  },
+  { 
+    path: 'user-detail', 
+    loadChildren: './user-detail/user-detail.module#UserDetailPageModule' 
+  },
+  { 
+    path: 'users/:id', 
+    loadChildren: './user-detail/user-detail.module#UserDetailPageModule' 
   },
 ];
 

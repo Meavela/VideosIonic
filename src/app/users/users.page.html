@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title slot="start">Utilisateurs</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredLocations()"></ion-searchbar>
+    <ion-card button 
+              *ngFor="let user of filterData; let i = index" 
+              [routerLink]="['/', 'users', user.idUser]"
+              class="animated flipInX" 
+              style="
+                animation-delay: 1s;
+                animation-iteration-count: 1;
+              ">
+      <ion-card-header>
+        <ion-card-title>{{ user.pseudo }}</ion-card-title>
+        <ion-card-subtitle>{{ user.mail }}</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>  
+</ion-content>

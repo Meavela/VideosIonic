@@ -17,7 +17,6 @@ import { Comment } from 'src/app/models/comment.model';
   styleUrls: ['./video-detail.page.scss'],
 })
 export class VideoDetailPage implements OnInit {
-  
 
   public videosCollection: AngularFirestoreCollection<Video>;
   public commentsCollection: AngularFirestoreCollection<Comment>;
