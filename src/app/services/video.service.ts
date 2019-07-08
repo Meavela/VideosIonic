@@ -42,8 +42,8 @@ export class VideoService {
     this.getVideos();
   }
 
-  updateVideo(video: Object, idToRemove: string){
-    this.db.collection('videos').doc(idToRemove).update(video).then(function() {
+  updateVideo(video: Object, idToUpdate: string){
+    this.db.collection('videos').doc(idToUpdate).update(video).then(function() {
       console.log("Document successfully update!");
     }).catch(function(error) {
         console.error("Error updating document: ", error);

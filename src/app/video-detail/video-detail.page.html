@@ -43,6 +43,48 @@
              [src]="item.image"
              class="animated bounceIn"></ion-img>
     <br>
+    <ion-item>
+      <ion-button expand="full" 
+                  color="medium" 
+                  (click)="upVote(item)" 
+                  class="animated wobble" 
+                  style="margin-left: auto;
+                         display: block;
+                         animation-delay: 1s;
+                         animation-iteration-count: 2;
+                  ">
+        <ion-icon ios="ios-thumbs-up" slot="start" md="md-thumbs-up"></ion-icon>
+        Like
+        <ion-badge color="primary"
+                  class="animated bounce"
+                  slot="end"
+                  style="animation-delay: 1s;
+                        animation-iteration-count: 2;">
+          {{ item.upVote }}
+        </ion-badge>
+      </ion-button>
+      <ion-button expand="full" 
+                  color="dark" 
+                  (click)="downVote(item)" 
+                  class="animated wobble" 
+                  style="
+                  margin-right: auto;
+                  display: block;
+                    animation-delay: 1s;
+                    animation-iteration-count: 2;
+                  ">
+        <ion-icon ios="ios-thumbs-down" slot="start" md="md-thumbs-down"></ion-icon>
+         Don't like
+         <ion-badge color="primary"
+                    class="animated bounce"
+                    slot="end"
+                    style="animation-delay: 1s;
+                            animation-iteration-count: 2;">
+          {{ item.downVote }}
+         </ion-badge>
+      </ion-button>
+    </ion-item>
+    <br>
     <div class="animated fadeInDown" 
           style="animation-delay: 0s;
                  animation-iteration-count: 1;">

@@ -145,7 +145,6 @@ export class VideoDetailPage implements OnInit {
       item.forEach(element => {
         if(element.data.idComment == comment.idComment){
           this.videosService.removeComment(element.id);
-          
           location.reload();
         }
       });
@@ -170,6 +169,49 @@ export class VideoDetailPage implements OnInit {
     });
 
     this.router.navigate(['/videos']);
+  }
+
+  upVote(video: Video){
+    var videos = this.videosCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        var data = a.payload.doc.data() as Video;
+        var id = a.payload.doc.id;
+        return { id, data };
+      }))
+    );
+    var passed = false;
+    videos.subscribe(item => {
+      item.forEach(element =>{
+        if(element.data.idVideo == video.idVideo && !passed){
+          passed = true;
+          video["upVote"] = video["upVote"]+1;
+          this.videosService.updateVideo(video, element.id);
+          // location.reload();
+        }
+      });
+    });
+  }
+
+  downVote(video: Video){
+    var videos = this.videosCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        var data = a.payload.doc.data() as Video;
+        var id = a.payload.doc.id;
+        return { id, data };
+      }))
+    );
+    var passed = false;
+
+    videos.subscribe(item => {
+      item.forEach(element =>{
+        if(element.data.idVideo == video.idVideo && !passed){
+          passed = true;
+          video["downVote"] = video["downVote"]+1;
+          this.videosService.updateVideo(video, element.id);
+          // location.reload();
+        }
+      });
+    });
   }
 
   deconnect(){

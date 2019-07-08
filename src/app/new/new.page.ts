@@ -91,6 +91,8 @@ export class NewPage implements OnInit {
                   genres += ",";
                 }else {
                   this.toAdd["genre"] = genres;
+                  this.toAdd["upVote"] = 0;
+                  this.toAdd["downVote"] = 0;
                   
                   this.videoService.createNewVideo(this.toAdd);
                   this.router.navigate(['/videos']);
