@@ -23,8 +23,11 @@
         <ion-icon ios="ios-calendar" md="md-calendar"></ion-icon>
       Date de publication : {{ item.date }}
     </ion-card-subtitle>
-    <ion-card-subtitle id="link" button [routerLink]="['/', 'profile']" 
-                      *ngFor="let element of userOfVideo">
+    <ion-card-subtitle id="link" 
+                       button 
+                       *ngFor="let element of userOfVideo" 
+                       [routerLink]="['/', 'users', element.idUser]" 
+                      >
       <ion-icon ios="ios-person" md="md-person"></ion-icon>
         Ajouté par : {{ element.pseudo }}
     </ion-card-subtitle>
@@ -95,7 +98,9 @@
                 animation-iteration-count: 1;
               ">
       <ion-card-header>
-        <ion-card-title>
+        <ion-card-title id="link"
+                        button
+                        [routerLink]="['/', 'users', comment.idUser]">
           {{ comment.userPseudo }}   
         </ion-card-title>  
         <ion-card-subtitle>
